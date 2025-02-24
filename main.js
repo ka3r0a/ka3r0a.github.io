@@ -1,3 +1,6 @@
+/**
+ * Main JavaScript file
+ */
 ;(() => {
   /**
    * Easy selector helper function
@@ -112,133 +115,14 @@
   )
 
   /**
-   * Animation on scroll
-   */
-  window.addEventListener("load", () => {
-    // Import AOS library here (e.g., using a script tag in your HTML)
-    AOS.init({
-      duration: 1000,
-      easing: "ease-in-out",
-      once: true,
-      mirror: false,
-    })
-  })
-
-  /**
-   * Initiate Pure Counter
-   */
-  new PureCounter()
-
-  /**
-   * Skills animation
-   */
-  const skilsContent = select(".skills-content")
-  if (skilsContent) {
-    new Waypoint({
-      element: skilsContent,
-      offset: "80%",
-      handler: (direction) => {
-        const progress = select(".progress .progress-bar", true)
-        progress.forEach((el) => {
-          el.style.width = el.getAttribute("aria-valuenow") + "%"
-        })
-      },
-    })
-  }
-
-  /**
-   * Porfolio isotope and filter
-   */
-  window.addEventListener("load", () => {
-    const portfolioContainer = select(".portfolio-container")
-    if (portfolioContainer) {
-      const portfolioIsotope = new Isotope(portfolioContainer, {
-        itemSelector: ".portfolio-item",
-      })
-
-      const portfolioFilters = select("#portfolio-flters li", true)
-
-      on(
-        "click",
-        "#portfolio-flters li",
-        function (e) {
-          e.preventDefault()
-          portfolioFilters.forEach((el) => {
-            el.classList.remove("filter-active")
-          })
-          this.classList.add("filter-active")
-
-          portfolioIsotope.arrange({
-            filter: this.getAttribute("data-filter"),
-          })
-          portfolioIsotope.on("arrangeComplete", () => {
-            AOS.refresh()
-          })
-        },
-        true,
-      )
-    }
-  })
-
-  /**
-   * Initiate portfolio lightbox
-   */
-  const portfolioLightbox = GLightbox({
-    selector: ".portfolio-lightbox",
-  })
-
-  /**
-   * Initiate portfolio details lightbox
-   */
-  const portfolioDetailsLightbox = GLightbox({
-    selector: ".portfolio-details-lightbox",
-    width: "90%",
-    height: "90vh",
-  })
-
-  /**
-   * Portfolio details slider
-   */
-  new Swiper(".portfolio-details-slider", {
-    speed: 400,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false,
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      type: "bullets",
-      clickable: true,
-    },
-  })
-
-  /**
-   * Testimonials slider
-   */
-  new Swiper(".testimonials-slider", {
-    speed: 600,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false,
-    },
-    slidesPerView: "auto",
-    pagination: {
-      el: ".swiper-pagination",
-      type: "bullets",
-      clickable: true,
-    },
-  })
-
-  /**
    * Hero type effect
    */
-  document.addEventListener("DOMContentLoaded", () => {
+  window.addEventListener("load", () => {
     const typed = select(".typed")
     if (typed) {
       let typed_strings = typed.getAttribute("data-typed-items")
-      typed_strings = typed_strings.split(",")
+      typed_strings = typed_strings.split(",").map((item) => item.trim())
+      const Typed = window.Typed // Assuming Typed is available globally or loaded via a script tag
       new Typed(".typed", {
         strings: typed_strings,
         loop: true,
@@ -246,19 +130,53 @@
         backSpeed: 50,
         backDelay: 2000,
         startDelay: 1000,
+        cursorChar: "|",
+        fadeOut: false,
+        smartBackspace: true,
       })
     }
-    console.log("Typed.js initialization attempted")
   })
 
   /**
-   * Preloader
+   * Animation on scroll
    */
-  const preloader = select("#preloader")
-  if (preloader) {
-    window.addEventListener("load", () => {
-      preloader.remove()
+  window.addEventListener("load", () => {
+    const AOS = window.AOS // Assuming AOS is available globally or loaded via a script tag
+    AOS.init({
+      duration: 1000,
+      easing: "ease-in-out",
+      once: false,
+      mirror: false,
     })
+  })
+
+  /**
+   * Skills animation
+   */
+  const initSkillsAnimation = () => {
+    const skillsSection = select(".skills")
+    if (skillsSection) {
+      const progressBars = select(".progress-bar", true)
+      const animateProgress = () => {
+        progressBars.forEach((bar) => {
+          const value = bar.getAttribute("aria-valuenow")
+          bar.style.width = value + "%"
+        })
+      }
+
+      // Initial animation
+      animateProgress()
+
+      // Animate on scroll
+      window.addEventListener("scroll", () => {
+        const sectionPos = skillsSection.getBoundingClientRect()
+        if (sectionPos.top < window.innerHeight && sectionPos.bottom >= 0) {
+          animateProgress()
+        }
+      })
+    }
   }
+
+  window.addEventListener("load", initSkillsAnimation)
 })()
 
