@@ -11,6 +11,7 @@ body {
 a {
   color: #149ddd;
   text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 a:hover {
@@ -42,6 +43,9 @@ h6 {
   height: 40px;
   border-radius: 50px;
   transition: all 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .back-to-top i {
@@ -53,6 +57,7 @@ h6 {
 .back-to-top:hover {
   background: #2eafec;
   color: #fff;
+  transform: translateY(-3px);
 }
 
 .back-to-top.active {
@@ -81,6 +86,11 @@ h6 {
   display: block;
   width: 120px;
   border: 8px solid #2c2f3f;
+  transition: all 0.3s ease;
+}
+
+#header .profile img:hover {
+  transform: scale(1.05);
 }
 
 #header .profile h1 {
@@ -116,7 +126,7 @@ h6 {
 #header .profile .social-links a:hover {
   background: #149ddd;
   color: #fff;
-  text-decoration: none;
+  transform: translateY(-3px);
 }
 
 /*--------------------------------------------------------------
@@ -170,36 +180,6 @@ h6 {
   color: #149ddd;
 }
 
-/* Mobile Navigation */
-.mobile-nav-toggle {
-  position: fixed;
-  right: 15px;
-  top: 15px;
-  z-index: 9998;
-  border: 0;
-  font-size: 24px;
-  transition: all 0.4s;
-  outline: none !important;
-  background-color: #149ddd;
-  color: #fff;
-  width: 40px;
-  height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 0;
-  border-radius: 50px;
-  cursor: pointer;
-}
-
-.mobile-nav-active {
-  overflow: hidden;
-}
-
-.mobile-nav-active #header {
-  left: 0;
-}
-
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
@@ -209,6 +189,10 @@ h6 {
   background: linear-gradient(135deg, #ff7f50, #800080, #ff4500);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @keyframes gradient {
@@ -239,6 +223,7 @@ h6 {
   z-index: 2;
   min-width: 300px;
   padding: 0 15px;
+  text-align: center;
 }
 
 #hero h1 {
@@ -261,6 +246,11 @@ h6 {
   padding-bottom: 4px;
   letter-spacing: 1px;
   border-bottom: 3px solid #149ddd;
+}
+
+.typed-cursor {
+  color: #fff;
+  font-size: 26px;
 }
 
 /*--------------------------------------------------------------
@@ -306,10 +296,15 @@ section {
 /*--------------------------------------------------------------
 # About
 --------------------------------------------------------------*/
+.about {
+  padding-top: 80px;
+}
+
 .about .content h3 {
   font-weight: 700;
   font-size: 26px;
   color: #fff;
+  margin-bottom: 20px;
 }
 
 .about .content ul {
@@ -321,6 +316,11 @@ section {
   margin-bottom: 20px;
   display: flex;
   align-items: center;
+  transition: all 0.3s ease;
+}
+
+.about .content ul li:hover {
+  transform: translateX(10px);
 }
 
 .about .content ul strong {
@@ -332,6 +332,18 @@ section {
   margin-right: 5px;
   color: #149ddd;
   line-height: 0;
+}
+
+.about .content p {
+  margin-bottom: 20px;
+}
+
+.about img {
+  transition: all 0.3s ease;
+}
+
+.about img:hover {
+  transform: scale(1.05);
 }
 
 /*--------------------------------------------------------------
@@ -363,12 +375,13 @@ section {
   background: #2c2f3f;
   height: 10px;
   border-radius: 5px;
+  overflow: hidden;
 }
 
 .skills .progress-bar {
-  width: 1px;
+  width: 0;
   height: 10px;
-  transition: .9s;
+  transition: all 1s ease;
   background-color: #149ddd;
 }
 
@@ -397,6 +410,38 @@ section {
 }
 
 /*--------------------------------------------------------------
+# Mobile Navigation
+--------------------------------------------------------------*/
+.mobile-nav-toggle {
+  position: fixed;
+  right: 15px;
+  top: 15px;
+  z-index: 9998;
+  border: 0;
+  font-size: 24px;
+  transition: all 0.4s;
+  outline: none !important;
+  background-color: #149ddd;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.mobile-nav-active {
+  overflow: hidden;
+}
+
+.mobile-nav-active #header {
+  left: 0;
+}
+
+/*--------------------------------------------------------------
 # Responsive Design
 --------------------------------------------------------------*/
 @media (max-width: 1199px) {
@@ -411,11 +456,15 @@ section {
   #footer {
     position: static;
     width: auto;
-    padding-right: 20px 15px;
+    padding: 20px 15px;
   }
 }
 
 @media (max-width: 768px) {
+  #hero {
+    text-align: center;
+  }
+
   #hero h1 {
     font-size: 28px;
     line-height: 36px;
@@ -425,6 +474,14 @@ section {
     font-size: 18px;
     line-height: 24px;
     margin-bottom: 30px;
+  }
+
+  .about .content h3 {
+    font-size: 22px;
+  }
+
+  .skills .progress .skill {
+    font-size: 14px;
   }
 }
 
