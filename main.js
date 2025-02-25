@@ -1,7 +1,34 @@
-/**
- * Main JavaScript file
- */
 ;(() => {
+  // Splash Screen Handler
+  const handleSplashScreen = () => {
+    const splashScreen = document.getElementById("splash-screen")
+    const skipButton = document.getElementById("skip-splash")
+    let splashTimeout
+
+    const hideSplashScreen = () => {
+      splashScreen.classList.add("hide")
+      setTimeout(() => {
+        splashScreen.style.display = "none"
+        document.body.style.overflow = "auto"
+      }, 500)
+    }
+
+    // Auto-hide splash screen after 3.5 seconds
+    splashTimeout = setTimeout(hideSplashScreen, 3500)
+
+    // Skip button handler
+    skipButton.addEventListener("click", () => {
+      clearTimeout(splashTimeout)
+      hideSplashScreen()
+    })
+
+    // Prevent scrolling while splash screen is visible
+    document.body.style.overflow = "hidden"
+  }
+
+  // Initialize splash screen when DOM is loaded
+  document.addEventListener("DOMContentLoaded", handleSplashScreen)
+
   /**
    * Easy selector helper function
    */
@@ -122,7 +149,7 @@
     if (typed) {
       let typed_strings = typed.getAttribute("data-typed-items")
       typed_strings = typed_strings.split(",").map((item) => item.trim())
-      const Typed = window.Typed // Assuming Typed is available globally or loaded via a script tag
+      const Typed = window.Typed // Access Typed from the window object
       new Typed(".typed", {
         strings: typed_strings,
         loop: true,
@@ -141,7 +168,7 @@
    * Animation on scroll
    */
   window.addEventListener("load", () => {
-    const AOS = window.AOS // Assuming AOS is available globally or loaded via a script tag
+    const AOS = window.AOS // Access AOS from the window object
     AOS.init({
       duration: 1000,
       easing: "ease-in-out",
