@@ -29,43 +29,6 @@ h6 {
 }
 
 /*--------------------------------------------------------------
-# Back to top button
---------------------------------------------------------------*/
-.back-to-top {
-  position: fixed;
-  visibility: hidden;
-  opacity: 0;
-  right: 15px;
-  bottom: 15px;
-  z-index: 996;
-  background: #149ddd;
-  width: 40px;
-  height: 40px;
-  border-radius: 50px;
-  transition: all 0.4s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.back-to-top i {
-  font-size: 28px;
-  color: #fff;
-  line-height: 0;
-}
-
-.back-to-top:hover {
-  background: #2eafec;
-  color: #fff;
-  transform: translateY(-3px);
-}
-
-.back-to-top.active {
-  visibility: visible;
-  opacity: 1;
-}
-
-/*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
 #header {
@@ -186,16 +149,12 @@ h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(135deg, #ff7f50, #800080, #ff4500);
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #9152ff);
   background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  animation: gradientBG 15s ease infinite;
 }
 
-@keyframes gradient {
+@keyframes gradientBG {
   0% {
     background-position: 0% 50%;
   }
@@ -207,9 +166,35 @@ h6 {
   }
 }
 
+/* Update hero text styles for better visibility */
+#hero h1 {
+  margin: 0 0 10px 0;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 56px;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#hero p {
+  color: #fff;
+  margin-bottom: 50px;
+  font-size: 26px;
+  font-family: "Poppins", sans-serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+#hero p span {
+  color: #fff;
+  padding-bottom: 4px;
+  letter-spacing: 1px;
+  border-bottom: 3px solid #fff;
+}
+
+/* Add a subtle overlay to improve text readability */
 #hero:before {
   content: "";
-  background: rgba(5, 13, 24, 0.3);
+  background: rgba(0, 0, 0, 0.2);
   position: absolute;
   bottom: 0;
   top: 0;
@@ -226,31 +211,9 @@ h6 {
   text-align: center;
 }
 
-#hero h1 {
-  margin: 0 0 10px 0;
-  font-size: 64px;
-  font-weight: 700;
-  line-height: 56px;
-  color: #fff;
-}
-
-#hero p {
-  color: #fff;
-  margin-bottom: 50px;
-  font-size: 26px;
-  font-family: "Poppins", sans-serif;
-}
-
-#hero p span {
-  color: #fff;
-  padding-bottom: 4px;
-  letter-spacing: 1px;
-  border-bottom: 3px solid #149ddd;
-}
-
 .typed-cursor {
   color: #fff;
-  font-size: 26px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /*--------------------------------------------------------------
@@ -304,7 +267,6 @@ section {
   font-weight: 700;
   font-size: 26px;
   color: #fff;
-  margin-bottom: 20px;
 }
 
 .about .content ul {
@@ -316,11 +278,6 @@ section {
   margin-bottom: 20px;
   display: flex;
   align-items: center;
-  transition: all 0.3s ease;
-}
-
-.about .content ul li:hover {
-  transform: translateX(10px);
 }
 
 .about .content ul strong {
@@ -334,16 +291,8 @@ section {
   line-height: 0;
 }
 
-.about .content p {
-  margin-bottom: 20px;
-}
-
-.about img {
-  transition: all 0.3s ease;
-}
-
-.about img:hover {
-  transform: scale(1.05);
+.about .content p:last-child {
+  margin-bottom: 0;
 }
 
 /*--------------------------------------------------------------
@@ -379,9 +328,9 @@ section {
 }
 
 .skills .progress-bar {
-  width: 0;
+  width: 1%;
   height: 10px;
-  transition: all 1s ease;
+  transition: 0.9s;
   background-color: #149ddd;
 }
 
@@ -405,8 +354,62 @@ section {
   text-align: center;
 }
 
+#footer .social-links a {
+  font-size: 18px;
+  display: inline-block;
+  background: #212431;
+  color: #fff;
+  line-height: 1;
+  padding: 8px 0;
+  margin-right: 4px;
+  border-radius: 50%;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  transition: 0.3s;
+}
+
+#footer .social-links a:hover {
+  background: #149ddd;
+  color: #fff;
+  transform: translateY(-3px);
+}
+
 #main {
   margin-left: 300px;
+}
+
+/*--------------------------------------------------------------
+# Back to top button
+--------------------------------------------------------------*/
+.back-to-top {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  right: 15px;
+  bottom: 15px;
+  z-index: 996;
+  background: #149ddd;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  transition: all 0.4s;
+}
+
+.back-to-top i {
+  font-size: 28px;
+  color: #fff;
+  line-height: 0;
+}
+
+.back-to-top:hover {
+  background: #2eafec;
+  color: #fff;
+}
+
+.back-to-top.active {
+  visibility: visible;
+  opacity: 1;
 }
 
 /*--------------------------------------------------------------
@@ -461,10 +464,6 @@ section {
 }
 
 @media (max-width: 768px) {
-  #hero {
-    text-align: center;
-  }
-
   #hero h1 {
     font-size: 28px;
     line-height: 36px;
@@ -476,12 +475,208 @@ section {
     margin-bottom: 30px;
   }
 
-  .about .content h3 {
+  #hero p {
+    font-size: 18px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  h2 {
     font-size: 22px;
   }
 
-  .skills .progress .skill {
-    font-size: 14px;
+  h3 {
+    font-size: 18px;
+  }
+}
+
+/* Splash Screen Styles */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #040b14, #0c1c2c);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.splash-screen.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.welcome-content {
+  text-align: center;
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+.emoji-container {
+  margin-bottom: 20px;
+  height: 60px;
+  perspective: 1000px;
+}
+
+.welcome-emoji {
+  font-size: 40px;
+  display: inline-block;
+  opacity: 0;
+  transform-style: preserve-3d;
+  margin: 0 10px;
+  animation: rotateEmoji 1.5s ease-out forwards;
+}
+
+.welcome-emoji:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.welcome-emoji:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.welcome-emoji:nth-child(4) {
+  animation-delay: 0.6s;
+}
+.welcome-emoji:nth-child(5) {
+  animation-delay: 0.8s;
+}
+
+@keyframes rotateEmoji {
+  0% {
+    opacity: 0;
+    transform: rotateX(-90deg) translateY(30px);
+  }
+  50% {
+    opacity: 1;
+    transform: rotateX(20deg) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateX(0) translateY(0);
+  }
+}
+
+.welcome-text {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  font-family: "Poppins", sans-serif;
+  opacity: 0;
+  transform: scale(0.9);
+  animation: fadeInScale 0.5s ease-out 1s forwards;
+  text-shadow: 0 0 10px rgba(20, 157, 221, 0.5);
+}
+
+.welcome-subtext {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  font-family: "Poppins", sans-serif;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.5s ease-out 1.5s forwards;
+  color: #149ddd;
+}
+
+.loading-bar {
+  width: 200px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin: 20px auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.loading-progress {
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #149ddd, #36d1dc);
+  border-radius: 2px;
+  animation: loading 3s ease-out forwards;
+  position: relative;
+}
+
+.loading-progress::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skip-splash {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out 2s forwards;
+}
+
+.skip-splash:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.skip-splash i {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+.skip-splash:hover i {
+  transform: translateX(5px);
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInScale {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
