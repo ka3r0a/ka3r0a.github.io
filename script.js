@@ -1,201 +1,588 @@
+// Wait for DOM to load
 document.addEventListener("DOMContentLoaded", () => {
-  // Preloader animation
-  const preloader = document.querySelector(".preloader")
-  const body = document.querySelector("body")
+  // Initialize language
+  const LanguageContext = {
+    init: () => {
+      const lang = localStorage.getItem("language") || "en"
+      return lang
+    },
+    toggleLanguage: (currentLang) => {
+      const newLang = currentLang === "en" ? "fa" : "en"
+      localStorage.setItem("language", newLang)
+      return newLang
+    },
+  }
+  const currentLang = LanguageContext.init()
 
-  // Function to hide preloader and show main content
-  function hidePreloader() {
-    preloader.classList.add("loaded")
-    body.classList.add("loaded")
+  // Set current year in footer
+  document.getElementById("year").textContent = new Date().getFullYear()
 
-    // Remove preloader from DOM after animation completes
-    setTimeout(() => {
-      preloader.style.display = "none"
-    }, 1500)
+  // Preloader
+  const preloader = document.getElementById("preloader")
+  const loadingProgress = document.querySelector(".loading-progress")
+  const loadingPercentage = document.querySelector(".loading-percentage")
+  const loadingStatus = document.querySelector(".loading-status")
+
+  const loadingTexts = [
+    "SCANNING ENVIRONMENT",
+    "INITIALIZING SYSTEMS",
+    "LOADING ASSETS",
+    "CALIBRATING INTERFACE",
+    "ESTABLISHING CONNECTION",
+    "RENDERING VISUALS",
+    "SYSTEM READY",
+  ]
+
+  let progress = 0
+  let textIndex = 0
+
+  const progressInterval = setInterval(() => {
+    progress += Math.floor(Math.random() * 5) + 1
+    if (progress > 100) progress = 100
+
+    loadingProgress.style.width = `${progress}%`
+    loadingPercentage.textContent = `${progress}%`
+
+    if (progress > textIndex * 15 && textIndex < loadingTexts.length) {
+      loadingStatus.textContent = loadingTexts[textIndex]
+      loadingStatus.classList.remove("glitch")
+      void loadingStatus.offsetWidth // Trigger reflow
+      loadingStatus.classList.add("glitch")
+      textIndex++
+    }
+
+    if (progress === 100) {
+      clearInterval(progressInterval)
+      setTimeout(() => {
+        preloader.classList.add("hidden")
+        document.body.style.overflow = "auto"
+        initDynamicBackground()
+        animateSkills()
+        animateStats()
+        revealSections()
+        updateLanguage(currentLang) // Apply initial language
+      }, 1000)
+    }
+  }, 100)
+
+  // Language toggle
+  const languageToggle = document.getElementById("language-toggle")
+  const mobileLanguageToggle = document.getElementById("mobile-language-toggle")
+
+  // Function to update all text content based on language
+  function updateLanguage(lang) {
+    // Update all elements with data-en and data-fa attributes
+    document.querySelectorAll("[data-en][data-fa]").forEach((element) => {
+      element.textContent = element.getAttribute(`data-${lang}`)
+    })
+
+    // Update language toggle buttons
+    if (languageToggle) {
+      languageToggle.textContent = languageToggle.getAttribute(`data-${lang}`)
+    }
+    if (mobileLanguageToggle) {
+      mobileLanguageToggle.textContent = mobileLanguageToggle.getAttribute(`data-${lang}`)
+    }
+
+    // Update document direction
+    document.documentElement.dir = lang === "fa" ? "rtl" : "ltr"
+    document.documentElement.lang = lang
   }
 
-  // Hide preloader after animations complete (adjust timing as needed)
-  setTimeout(hidePreloader, 4500)
+  // Language toggle event listeners
+  if (languageToggle) {
+    languageToggle.addEventListener("click", () => {
+      const newLang = LanguageContext.toggleLanguage(currentLang)
+      updateLanguage(newLang)
+    })
+  }
+
+  if (mobileLanguageToggle) {
+    mobileLanguageToggle.addEventListener("click", () => {
+      const newLang = LanguageContext.toggleLanguage(currentLang)
+      updateLanguage(newLang)
+    })
+  }
 
   // Custom cursor
-  const cursor = document.querySelector(".custom-cursor")
+  const cursor = document.querySelector(".cursor")
+  const cursorDot = document.querySelector(".cursor-dot")
+  const cursorOutline = document.querySelector(".cursor-outline")
 
-  if (window.matchMedia("(pointer: fine)").matches) {
-    document.addEventListener("mousemove", (e) => {
-      cursor.style.left = e.clientX + "px"
-      cursor.style.top = e.clientY + "px"
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.display = "block"
+    const posX = e.clientX
+    const posY = e.clientY
+
+    cursorDot.style.transform = `translate(${posX}px, ${posY}px)`
+    cursorOutline.style.transform = `translate(${posX}px, ${posY}px)`
+  })
+
+  document.addEventListener("mouseout", () => {
+    cursor.style.display = "none"
+  })
+
+  // Cursor hover effects
+  const hoverElements = document.querySelectorAll("a, button, .btn, input, textarea")
+
+  hoverElements.forEach((element) => {
+    element.addEventListener("mouseenter", () => {
+      cursorOutline.style.width = "60px"
+      cursorOutline.style.height = "60px"
+      cursorOutline.style.borderColor = "var(--primary)"
     })
 
-    document.addEventListener("mousedown", () => {
-      cursor.style.width = "15px"
-      cursor.style.height = "15px"
-      cursor.style.borderColor = "var(--color-secondary)"
+    element.addEventListener("mouseleave", () => {
+      cursorOutline.style.width = "40px"
+      cursorOutline.style.height = "40px"
+      cursorOutline.style.borderColor = "var(--primary)"
     })
+  })
 
-    document.addEventListener("mouseup", () => {
-      cursor.style.width = "20px"
-      cursor.style.height = "20px"
-      cursor.style.borderColor = "var(--color-primary)"
-    })
-
-    // Expand cursor on hoverable elements
-    const hoverables = document.querySelectorAll("a, button, .nav-toggle, .skill-category, .project-card")
-    hoverables.forEach((hoverable) => {
-      hoverable.addEventListener("mouseenter", () => {
-        cursor.style.width = "50px"
-        cursor.style.height = "50px"
-        cursor.style.backgroundColor = "rgba(108, 99, 255, 0.1)"
-        cursor.style.borderColor = "transparent"
-      })
-
-      hoverable.addEventListener("mouseleave", () => {
-        cursor.style.width = "20px"
-        cursor.style.height = "20px"
-        cursor.style.backgroundColor = "transparent"
-        cursor.style.borderColor = "var(--color-primary)"
-      })
-    })
-  }
-
-  // Navigation scroll effect
-  const nav = document.querySelector(".main-nav")
+  // Header scroll effect
+  const header = document.querySelector(".header")
 
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 100) {
-      nav.classList.add("scrolled")
+    if (window.scrollY > 50) {
+      header.classList.add("scrolled")
     } else {
-      nav.classList.remove("scrolled")
+      header.classList.remove("scrolled")
     }
   })
 
   // Mobile menu toggle
-  const navToggle = document.querySelector(".nav-toggle")
-  const mobileMenu = document.querySelector(".mobile-menu")
+  const menuToggle = document.getElementById("menu-toggle")
+  const mobileMenu = document.getElementById("mobile-menu")
 
-  navToggle.addEventListener("click", () => {
-    navToggle.classList.toggle("active")
+  menuToggle.addEventListener("click", () => {
+    menuToggle.classList.toggle("active")
     mobileMenu.classList.toggle("active")
+    document.body.classList.toggle("no-scroll")
   })
 
-  // Close mobile menu when clicking a link
-  const mobileLinks = document.querySelectorAll(".mobile-link")
-  mobileLinks.forEach((link) => {
+  // Mobile menu links
+  const mobileNavLinks = document.querySelectorAll(".mobile-nav-link")
+
+  mobileNavLinks.forEach((link) => {
     link.addEventListener("click", () => {
-      navToggle.classList.remove("active")
+      menuToggle.classList.remove("active")
       mobileMenu.classList.remove("active")
+      document.body.classList.remove("no-scroll")
     })
   })
 
-  // Smooth scrolling for navigation links
-  const navLinks = document.querySelectorAll(".nav-link, .mobile-link")
-  navLinks.forEach((link) => {
+  // Smooth scrolling for anchor links
+  const anchorLinks = document.querySelectorAll('a[href^="#"]')
+
+  anchorLinks.forEach((link) => {
     link.addEventListener("click", function (e) {
       e.preventDefault()
 
       const targetId = this.getAttribute("href")
-      const targetElement = document.querySelector(targetId)
-      const navHeight = document.querySelector(".main-nav").offsetHeight
+      if (targetId === "#") return
 
-      window.scrollTo({
-        top: targetElement.offsetTop - navHeight,
-        behavior: "smooth",
-      })
+      const targetElement = document.querySelector(targetId)
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 100,
+          behavior: "smooth",
+        })
+      }
     })
   })
 
-  // Typing effect
-  const options = {
-    strings: [
-      "Mathematics Student",
-      "Photographer",
-      "Web Developer",
-      "Piano Player",
-      "Problem Solver",
-      "Creative Thinker",
-    ],
-    typeSpeed: 50,
-    backSpeed: 30,
-    backDelay: 2000,
-    loop: true,
+  // Active navigation based on scroll position
+  const sections = document.querySelectorAll("section[id]")
+  const navLinks = document.querySelectorAll(".nav-link")
+
+  function highlightNavigation() {
+    const scrollPosition = window.scrollY
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop - 150
+      const sectionHeight = section.offsetHeight
+      const sectionId = section.getAttribute("id")
+
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        navLinks.forEach((link) => {
+          link.classList.remove("active")
+          if (link.getAttribute("href") === `#${sectionId}`) {
+            link.classList.add("active")
+          }
+        })
+      }
+    })
   }
 
-  // Check if Typed.js is loaded
-  if (typeof Typed !== "undefined") {
-    new Typed(".typing-text", options)
+  window.addEventListener("scroll", highlightNavigation)
+
+  // Eye follow cursor
+  const eyes = document.querySelectorAll(".iris")
+  const pupils = document.querySelectorAll(".pupil")
+
+  document.addEventListener("mousemove", (e) => {
+    eyes.forEach((eye) => {
+      const eyeRect = eye.getBoundingClientRect()
+      const eyeCenterX = eyeRect.left + eyeRect.width / 2
+      const eyeCenterY = eyeRect.top + eyeRect.height / 2
+
+      const angle = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX)
+      const distance = Math.min(eyeRect.width / 4, Math.hypot(e.clientX - eyeCenterX, e.clientY - eyeCenterY) / 10)
+
+      const moveX = Math.cos(angle) * distance
+      const moveY = Math.sin(angle) * distance
+
+      eye.style.transform = `translate(${moveX}px, ${moveY}px)`
+    })
+  })
+
+  // Pupil dilation based on light
+  function dilateOnScroll() {
+    const scrollPosition = window.scrollY
+    const maxScroll = document.body.scrollHeight - window.innerHeight
+    const scrollPercentage = scrollPosition / maxScroll
+
+    pupils.forEach((pupil) => {
+      const parentWidth = pupil.parentElement.offsetWidth
+      const minSize = parentWidth * 0.3
+      const maxSize = parentWidth * 0.5
+      const size = maxSize - scrollPercentage * (maxSize - minSize)
+
+      pupil.style.width = `${size}px`
+      pupil.style.height = `${size}px`
+    })
   }
 
-  // Skill category tabs
-  const skillCategories = document.querySelectorAll(".skill-category")
-  const skillGroups = document.querySelectorAll(".skills-group")
+  window.addEventListener("scroll", dilateOnScroll)
 
-  skillCategories.forEach((category) => {
-    category.addEventListener("click", function () {
-      // Remove active class from all categories
-      skillCategories.forEach((cat) => {
-        cat.classList.remove("active")
+  // Random eye blinking
+  function randomBlink() {
+    const eyeLids = document.querySelectorAll(".eye-lid")
+    const randomTime = Math.random() * 5000 + 3000 // Random time between 3-8 seconds
+
+    setTimeout(() => {
+      eyeLids.forEach((lid) => {
+        lid.style.animation = "none"
+        void lid.offsetWidth // Trigger reflow
+        lid.style.animation = lid.classList.contains("top-lid") ? "blinkTop 0.2s" : "blinkBottom 0.2s"
       })
 
-      // Add active class to clicked category
-      this.classList.add("active")
+      setTimeout(() => {
+        eyeLids.forEach((lid) => {
+          lid.style.animation = lid.classList.contains("top-lid") ? "blinkTop 6s infinite" : "blinkBottom 6s infinite"
+        })
+      }, 200)
 
-      // Show corresponding skill group
-      const categoryName = this.getAttribute("data-category")
+      randomBlink()
+    }, randomTime)
+  }
 
-      skillGroups.forEach((group) => {
-        group.classList.remove("active")
+  randomBlink()
 
-        if (group.getAttribute("data-group") === categoryName) {
-          group.classList.add("active")
+  // Animate skills on scroll
+  function animateSkills() {
+    const skillBars = document.querySelectorAll(".skill-progress")
+
+    skillBars.forEach((bar) => {
+      const progress = bar.getAttribute("data-progress")
+      setTimeout(() => {
+        bar.style.width = `${progress}%`
+      }, 300)
+    })
+  }
+
+  // Animate stats
+  function animateStats() {
+    const stats = document.querySelectorAll(".stat-value")
+
+    stats.forEach((stat) => {
+      const targetValue = Number.parseInt(stat.parentElement.getAttribute("data-count"))
+      let currentValue = 0
+      const duration = 2000 // 2 seconds
+      const increment = targetValue / (duration / 16) // 60fps
+
+      const updateStat = () => {
+        currentValue += increment
+        if (currentValue >= targetValue) {
+          currentValue = targetValue
+          stat.textContent = targetValue + "+"
+          return
+        }
+
+        stat.textContent = Math.floor(currentValue) + "+"
+        requestAnimationFrame(updateStat)
+      }
+
+      requestAnimationFrame(updateStat)
+    })
+  }
+
+  // Reveal sections on scroll
+  function revealSections() {
+    const revealElements = document.querySelectorAll(".reveal-text")
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed")
+            revealObserver.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.1 },
+    )
+
+    revealElements.forEach((element) => {
+      revealObserver.observe(element)
+    })
+  }
+
+  // Skill tabs
+  const skillTabs = document.querySelectorAll(".skill-tab")
+  const skillContents = document.querySelectorAll(".skills-tab-content")
+
+  skillTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = tab.getAttribute("data-tab")
+
+      // Update active tab
+      skillTabs.forEach((t) => t.classList.remove("active"))
+      tab.classList.add("active")
+
+      // Show corresponding content
+      skillContents.forEach((content) => {
+        content.classList.remove("active")
+        if (content.id === `${target}-skills`) {
+          content.classList.add("active")
         }
       })
     })
   })
 
-  // Animate skill bars on scroll
-  const skillBars = document.querySelectorAll(".skill-progress")
+  // Project filtering
+  const projectFilters = document.querySelectorAll(".project-filter")
+  const projectCards = document.querySelectorAll(".project-card")
 
-  function animateSkillBars() {
-    skillBars.forEach((bar) => {
-      const barPosition = bar.getBoundingClientRect().top
-      const screenPosition = window.innerHeight / 1.2
+  projectFilters.forEach((filter) => {
+    filter.addEventListener("click", () => {
+      const filterValue = filter.getAttribute("data-filter")
 
-      if (barPosition < screenPosition) {
-        const progress = bar.getAttribute("data-progress")
-        bar.style.width = progress + "%"
-      }
+      // Update active filter
+      projectFilters.forEach((f) => f.classList.remove("active"))
+      filter.classList.add("active")
+
+      // Filter projects
+      projectCards.forEach((card) => {
+        if (filterValue === "all" || card.getAttribute("data-category") === filterValue) {
+          card.style.display = "block"
+        } else {
+          card.style.display = "none"
+        }
+      })
     })
-  }
+  })
 
-  // Initial check for elements in view
-  animateSkillBars()
-
-  // Check on scroll
-  window.addEventListener("scroll", animateSkillBars)
-
-  // Form submission
-  const contactForm = document.querySelector(".contact-form")
+  // Contact form submission with EmailJS
+  const contactForm = document.getElementById("contact-form")
 
   if (contactForm) {
     contactForm.addEventListener("submit", (e) => {
       e.preventDefault()
 
-      // Get form values
-      const name = document.getElementById("name").value
-      const email = document.getElementById("email").value
-      const subject = document.getElementById("subject").value
-      const message = document.getElementById("message").value
+      // Show loading state
+      const submitButton = contactForm.querySelector('button[type="submit"]')
+      const originalButtonText = submitButton.innerHTML
+      submitButton.innerHTML = "<span>Sending...</span>"
+      submitButton.disabled = true
 
-      // Simple validation
-      if (!name || !email || !subject || !message) {
-        alert("Please fill in all fields")
-        return
+      // Prepare template parameters
+      const templateParams = {
+        from_name: document.getElementById("name").value,
+        from_email: document.getElementById("email").value,
+        message: document.getElementById("message").value,
+        to_email: "ka3r0a@gmail.com",
       }
 
-      // Here you would typically send the form data to a server
-      // For demo purposes, we'll just show a success message
-      alert("Message sent successfully!")
-      contactForm.reset()
+      // Send email using EmailJS
+      if (typeof emailjs !== "undefined") {
+        emailjs.send("service_bmt8ovc", "template_oj8vge3", templateParams).then(
+          (response) => {
+            console.log("SUCCESS!", response.status, response.text)
+            alert("Message sent successfully!")
+            contactForm.reset()
+            submitButton.innerHTML = originalButtonText
+            submitButton.disabled = false
+          },
+          (error) => {
+            console.log("FAILED...", error)
+            alert("Failed to send message. Please try again later.")
+            submitButton.innerHTML = originalButtonText
+            submitButton.disabled = false
+          },
+        )
+      } else {
+        console.error("EmailJS is not initialized. Please ensure EmailJS is properly integrated.")
+        alert("Failed to send message. EmailJS is not initialized.")
+        submitButton.innerHTML = originalButtonText
+        submitButton.disabled = false
+      }
     })
   }
+
+  // Dynamic Background
+  function initDynamicBackground() {
+    const canvas = document.getElementById("dynamic-background")
+    const ctx = canvas.getContext("2d")
+
+    // Set canvas size
+    function setCanvasSize() {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+
+    setCanvasSize()
+    window.addEventListener("resize", setCanvasSize)
+
+    // Create circuit nodes
+    const nodes = []
+    const nodeCount = 50
+
+    for (let i = 0; i < nodeCount; i++) {
+      nodes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 2 + 1,
+        connections: [],
+        pulses: [],
+        nextPulseTime: Math.random() * 5000,
+      })
+    }
+
+    // Create connections between nodes
+    nodes.forEach((node, i) => {
+      const connections = []
+      for (let j = 0; j < nodes.length; j++) {
+        if (i !== j) {
+          const otherNode = nodes[j]
+          const dx = node.x - otherNode.x
+          const dy = node.y - otherNode.y
+          const distance = Math.sqrt(dx * dx + dy * dy)
+
+          if (distance < 200) {
+            connections.push(j)
+          }
+        }
+      }
+      node.connections = connections.slice(0, 3) // Limit to 3 connections per node
+    })
+
+    // Mouse position for interactive effect
+    let mouseX = 0
+    let mouseY = 0
+
+    document.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX
+      mouseY = e.clientY
+    })
+
+    // Animation loop
+    function animate(time) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      // Draw connections
+      nodes.forEach((node, i) => {
+        node.connections.forEach((connectionIndex) => {
+          const otherNode = nodes[connectionIndex]
+          ctx.beginPath()
+          ctx.moveTo(node.x, node.y)
+          ctx.lineTo(otherNode.x, otherNode.y)
+          ctx.strokeStyle = "rgba(220, 38, 38, 0.2)"
+          ctx.lineWidth = 0.5
+          ctx.stroke()
+        })
+      })
+
+      // Draw nodes
+      nodes.forEach((node) => {
+        ctx.beginPath()
+        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2)
+        ctx.fillStyle = "rgba(220, 38, 38, 0.5)"
+        ctx.fill()
+
+        // Process pulses
+        if (time > node.nextPulseTime) {
+          const randomConnection = node.connections[Math.floor(Math.random() * node.connections.length)]
+          if (randomConnection !== undefined) {
+            node.pulses.push({
+              targetIndex: randomConnection,
+              progress: 0,
+              speed: 0.005,
+            })
+          }
+          node.nextPulseTime = time + Math.random() * 5000 + 2000
+        }
+
+        // Update and draw pulses
+        for (let i = node.pulses.length - 1; i >= 0; i--) {
+          const pulse = node.pulses[i]
+          pulse.progress += pulse.speed
+
+          if (pulse.progress >= 1) {
+            node.pulses.splice(i, 1)
+            continue
+          }
+
+          const targetNode = nodes[pulse.targetIndex]
+          const x = node.x + (targetNode.x - node.x) * pulse.progress
+          const y = node.y + (targetNode.y - node.y) * pulse.progress
+
+          ctx.beginPath()
+          ctx.arc(x, y, 2, 0, Math.PI * 2)
+          ctx.fillStyle = "rgba(220, 38, 38, 0.8)"
+          ctx.fill()
+        }
+      })
+
+      // Interactive effect
+      ctx.beginPath()
+      ctx.arc(mouseX, mouseY, 100, 0, Math.PI * 2)
+      const gradient = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 100)
+      gradient.addColorStop(0, "rgba(220, 38, 38, 0.2)")
+      gradient.addColorStop(1, "rgba(220, 38, 38, 0)")
+      ctx.fillStyle = gradient
+      ctx.fill()
+
+      requestAnimationFrame(animate)
+    }
+
+    requestAnimationFrame(animate)
+  }
+
+  // Create hexagons for background
+  function createHexagons() {
+    const container = document.querySelector(".hexagon-container")
+    const count = 10
+
+    for (let i = 0; i < count; i++) {
+      const hexagon = document.createElement("div")
+      hexagon.classList.add("hexagon")
+
+      const size = Math.random() * 100 + 50
+      hexagon.style.width = `${size}px`
+      hexagon.style.height = `${size}px`
+      hexagon.style.left = `${Math.random() * 100}%`
+      hexagon.style.top = `${Math.random() * 100}%`
+      hexagon.style.opacity = Math.random() * 0.5 + 0.1
+
+      // Apply hexagon clip path
+      hexagon.style.clipPath = "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)"
+      hexagon.style.border = "1px solid rgba(220, 38, 38, 0.3)"
+
+      container.appendChild(hexagon)
+    }
+  }
+
+  createHexagons()
 })
 
