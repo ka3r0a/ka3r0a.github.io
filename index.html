@@ -1,461 +1,506 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kasra Babazadeh | Creative Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kasra Babazadeh | Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syncopate:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Improved preloader -->
-    <div class="preloader">
-        <div class="preloader-content">
-            <div class="welcome-text-container">
-                <div class="welcome-text">WELCOME</div>
-            </div>
-            <div class="loader-container">
-                <div class="loader-bar"></div>
-                <div class="loader-text">Loading Experience<span class="loader-dots">...</span></div>
-            </div>
-            <div class="geometric-animations">
-                <div class="geo-shape circle"></div>
-                <div class="geo-shape triangle"></div>
-                <div class="geo-shape square"></div>
-                <div class="geo-shape rectangle"></div>
-            </div>
-            <div class="preloader-name">KASRA BABAZADEH</div>
-        </div>
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+<div class="preloader-content">
+  <div class="preloader-logo">KB</div>
+  <div class="welcome-text-container">
+    <h1 class="welcome-text">WELCOME TO MY WORLD</h1>
+  </div>
+  <div class="loading-bar-container">
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
     </div>
-    
-    <!-- Background Elements -->
-    <div class="bg-gradient"></div>
-    <div class="bg-grid"></div>
-    <div class="noise-overlay"></div>
-    
-    <!-- Cursor -->
-    <div class="custom-cursor"></div>
-    
-    <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="logo">K.B</div>
-            <div class="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-    
-    <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <ul class="mobile-links">
-            <li><a href="#home" class="mobile-link">Home</a></li>
-            <li><a href="#about" class="mobile-link">About</a></li>
-            <li><a href="#skills" class="mobile-link">Skills</a></li>
-            <li><a href="#projects" class="mobile-link">Projects</a></li>
-            <li><a href="#contact" class="mobile-link">Contact</a></li>
+    <div class="loading-percentage">0%</div>
+  </div>
+  <div class="loading-status">SCANNING ENVIRONMENT</div>
+</div>
+</div>
+
+<!-- Dynamic Background -->
+<canvas id="dynamic-background" class="dynamic-background"></canvas>
+
+<!-- Header -->
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <a href="#" class="logo neon-glow">KB</a>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="#home" class="nav-link active" data-section="home">HOME</a></li>
+          <li><a href="#about" class="nav-link" data-section="about">ABOUT</a></li>
+          <li><a href="#skills" class="nav-link" data-section="skills">SKILLS</a></li>
+          <li><a href="#projects" class="nav-link" data-section="projects">PROJECTS</a></li>
+          <li><a href="#contact" class="nav-link" data-section="contact">CONTACT</a></li>
         </ul>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-content">
+    <ul class="mobile-nav">
+      <li><a href="#home" class="mobile-nav-link" data-section="home">HOME</a></li>
+      <li><a href="#about" class="mobile-nav-link" data-section="about">ABOUT</a></li>
+      <li><a href="#skills" class="mobile-nav-link" data-section="skills">SKILLS</a></li>
+      <li><a href="#projects" class="mobile-nav-link" data-section="projects">PROJECTS</a></li>
+      <li><a href="#contact" class="mobile-nav-link" data-section="contact">CONTACT</a></li>
+    </ul>
+  </div>
+</div>
+
+<main>
+  <!-- Hero Section -->
+  <section id="home" class="section hero-section">
+    <div class="hero-background">
+      <div class="grid-lines"></div>
+      <div class="circuit-pattern"></div>
+      <div class="animated-circle circle-1"></div>
+      <div class="animated-circle circle-2"></div>
+      <div class="hexagon-container"></div>
+      <div class="scanner"></div>
     </div>
 
-    <!-- Home/Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="hero-greeting">Hello, I'm</span>
-                    <span class="hero-name">Kasra Babazadeh</span>
-                </h1>
-                <div class="hero-subtitle">
-                    <span class="typing-text"></span>
-                </div>
-                <p class="hero-description">
-                    A creative problem solver passionate about building innovative digital experiences.
-                </p>
-                <div class="hero-cta">
-                    <a href="#projects" class="primary-btn">View My Work</a>
-                    <a href="#contact" class="secondary-btn">Get In Touch</a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="hero-image-container">
-                    <div class="hero-image"></div>
-                    <div class="hero-shape shape1"></div>
-                    <div class="hero-shape shape2"></div>
-                    <div class="hero-shape shape3"></div>
-                </div>
-            </div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="glitch-text" data-text="KASRA BABAZADEH">
+            <span class="neon-glow">KASRA</span>
+            <span class="text-red neon-glow">BABAZADEH</span>
+          </h1>
+          <p class="hero-description">
+            Exploring the intersection of technology and human perception through creative development
+          </p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary neon-box">
+              <span>View Projects</span>
+            </button>
+            <button class="btn btn-secondary">
+              <span>Contact Me</span>
+            </button>
+          </div>
         </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
-            </div>
-            <div class="arrow-down"></div>
-        </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about" class="section about-section">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">About Me</h2>
-                <div class="section-line"></div>
+        <div class="hero-eye-container">
+          <div class="realistic-eye-large">
+            <div class="eye-lid top-lid"></div>
+            <div class="eye-lid bottom-lid"></div>
+            <div class="sclera">
+              <div class="iris">
+                <div class="pupil"></div>
+                <div class="iris-texture"></div>
+                <div class="iris-highlight"></div>
+              </div>
+              <div class="blood-vessels"></div>
             </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>I'm a passionate creator with a background in mathematics and a love for technology. My journey has led me through various disciplines, from photography to programming, always seeking to blend analytical thinking with creative expression.</p>
-                    <p>I believe in building solutions that are not only functional but also aesthetically pleasing and intuitive to use. My diverse skill set allows me to approach problems from multiple angles and create innovative solutions.</p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <span class="stat-number">5+</span>
-                            <span class="stat-label">Years Experience</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">20+</span>
-                            <span class="stat-label">Projects Completed</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">15+</span>
-                            <span class="stat-label">Happy Clients</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-visual">
-                    <div class="tech-stack">
-                        <div class="tech-item" data-tech="HTML5">
-                            <div class="tech-icon">&#60;/&#62;</div>
-                            <span class="tech-name">HTML5</span>
-                        </div>
-                        <div class="tech-item" data-tech="CSS3">
-                            <div class="tech-icon">{}</div>
-                            <span class="tech-name">CSS3</span>
-                        </div>
-                        <div class="tech-item" data-tech="JavaScript">
-                            <div class="tech-icon">JS</div>
-                            <span class="tech-name">JavaScript</span>
-                        </div>
-                        <div class="tech-item" data-tech="React">
-                            <div class="tech-icon">⚛️</div>
-                            <span class="tech-name">React</span>
-                        </div>
-                        <div class="tech-item" data-tech="Node.js">
-                            <div class="tech-icon">🟢</div>
-                            <span class="tech-name">Node.js</span>
-                        </div>
-                        <div class="tech-item" data-tech="Python">
-                            <div class="tech-icon">🐍</div>
-                            <span class="tech-name">Python</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            <div class="eye-glow"></div>
+            <div class="eye-decoration eye-decoration-1"></div>
+            <div class="eye-decoration eye-decoration-2"></div>
+          </div>
 
-    <!-- Skills Section -->
-    <section id="skills" class="section skills-section">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">My Skills</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="skills-content">
-                <div class="skills-categories">
-                    <div class="skill-category active" data-category="technical">Technical</div>
-                    <div class="skill-category" data-category="creative">Creative</div>
-                    <div class="skill-category" data-category="soft">Soft Skills</div>
-                </div>
-                <div class="skills-display">
-                    <!-- Technical Skills -->
-                    <div class="skills-group active" data-group="technical">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">Web Development</span>
-                                <span class="skill-percentage">90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">JavaScript</span>
-                                <span class="skill-percentage">85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">React</span>
-                                <span class="skill-percentage">80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">Python</span>
-                                <span class="skill-percentage">75%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="75"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Creative Skills -->
-                    <div class="skills-group" data-group="creative">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">UI/UX Design</span>
-                                <span class="skill-percentage">85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">Photography</span>
-                                <span class="skill-percentage">90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">Piano</span>
-                                <span class="skill-percentage">85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">Graphic Design</span>
-                                <span class="skill-percentage">75%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="75"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">Motion Graphics</span>
-                                <span class="skill-percentage">70%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="70"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Soft Skills -->
-                    <div class="skills-group" data-group="soft">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">Problem Solving</span>
-                                <span class="skill-percentage">95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="95"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">Communication</span>
-                                <span class="skill-percentage">90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">Teamwork</span>
-                                <span class="skill-percentage">85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">Adaptability</span>
-                                <span class="skill-percentage">90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <!-- Floating tech elements -->
+          <div class="floating-elements">
+            <span class="floating-element">&lt;/&gt;</span>
+            <span class="floating-element">{}</span>
+            <span class="floating-element">[]</span>
+            <span class="floating-element">//</span>
+            <span class="floating-element">&amp;&amp;</span>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section projects-section">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Featured Projects</h2>
-                <div class="section-line"></div>
+    <div class="scroll-indicator">
+      <span>Scroll Down</span>
+      <div class="chevron-down"></div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section about-section">
+    <div class="container">
+      <h2 class="section-title reveal-text">Who Am I</h2>
+      
+      <div class="card about-card">
+        <div class="card-content">
+          <p>
+            I'm a passionate creator with a background in mathematics and a love for technology. My journey has led
+            me through various disciplines, from photography to programming, always seeking to blend analytical
+            thinking with creative expression.
+          </p>
+          <p>
+            I believe in building solutions that are not only functional but also aesthetically pleasing and
+            intuitive to use. My diverse skill set allows me to approach problems from multiple angles and create
+            innovative solutions.
+          </p>
+          
+          <div class="stats-container">
+            <div class="stat-card" data-count="5">
+              <div class="stat-value">0+</div>
+              <div class="stat-label">Years Experience</div>
             </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="project-link">View Project</a>
-                                <a href="#" class="project-link">Source Code</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">Interactive Data Visualization</h3>
-                        <p class="project-description">A web application that transforms complex data sets into intuitive, interactive visualizations.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">React</span>
-                            <span class="project-tag">D3.js</span>
-                            <span class="project-tag">API</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="project-link">View Project</a>
-                                <a href="#" class="project-link">Source Code</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">E-Commerce Platform</h3>
-                        <p class="project-description">A full-featured online store with product management, cart functionality, and payment processing.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Node.js</span>
-                            <span class="project-tag">MongoDB</span>
-                            <span class="project-tag">Express</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="project-link">View Project</a>
-                                <a href="#" class="project-link">Source Code</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">AI-Powered Image Editor</h3>
-                        <p class="project-description">A tool that uses machine learning to enhance and transform images with intelligent features.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">TensorFlow</span>
-                            <span class="project-tag">Flask</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="stat-card" data-count="20">
+              <div class="stat-value">0+</div>
+              <div class="stat-label">Projects Completed</div>
             </div>
-            <div class="projects-cta">
-                <a href="#" class="primary-btn">View All Projects</a>
+            <div class="stat-card" data-count="15">
+              <div class="stat-value">0+</div>
+              <div class="stat-label">Happy Clients</div>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section contact-section">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Get In Touch</h2>
-                <div class="section-line"></div>
+  <!-- Skills Section -->
+  <section id="skills" class="section skills-section">
+    <div class="container">
+      <h2 class="section-title reveal-text">Skills</h2>
+
+      <div class="skills-tabs">
+        <button class="skill-tab active" data-tab="technical">TECHNICAL</button>
+        <button class="skill-tab" data-tab="creative">CREATIVE</button>
+        <button class="skill-tab" data-tab="soft">SOFT</button>
+      </div>
+
+      <div class="skills-content">
+        <!-- Technical Skills -->
+        <div class="skills-tab-content active" id="technical-skills">
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-header">
+                <h3 class="skill-name">Web Development</h3>
+                <span class="skill-percentage">90%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-progress="90"></div>
+              </div>
+              <div class="skill-tags">
+                <span class="skill-tag">HTML</span>
+                <span class="skill-tag">CSS</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">React</span>
+              </div>
             </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">✉️</div>
-                        <div class="contact-details">
-                            <h3>Email</h3>
-                            <p>contact@ka3ra.ir</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📱</div>
-                        <div class="contact-details">
-                            <h3>Phone</h3>
-                            <p>+98 999 178 7874</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div class="contact-details">
-                            <h3>Location</h3>
-                            <p>Tehran, Iran</p>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://linkedin.com/in/" class="social-link" target="_blank">LinkedIn</a>
-                        <a href="https://github.com/ka3r0a" class="social-link" target="_blank">GitHub</a>
-                        <a href="https://t.me/iik3r" class="social-link" target="_blank">Telegram</a>
-                        <a href="https://instagram.com/ka3r0a" class="social-link" target="_blank">Instagram</a>
-                    </div>
-                </div>
-                <div class="contact-form-container">
-                    <form class="contact-form">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
-                </div>
+            
+            <div class="skill-card">
+              <div class="skill-header">
+                <h3 class="skill-name">Mathematics</h3>
+                <span class="skill-percentage">95%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-progress="95"></div>
+              </div>
+              <div class="skill-tags">
+                <span class="skill-tag">Calculus</span>
+                <span class="skill-tag">Linear Algebra</span>
+                <span class="skill-tag">Statistics</span>
+              </div>
             </div>
+            
+            <div class="skill-card">
+              <div class="skill-header">
+                <h3 class="skill-name">Programming</h3>
+                <span class="skill-percentage">85%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-progress="85"></div>
+              </div>
+              <div class="skill-tags">
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Node.js</span>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-logo">K.B</div>
-            <p class="footer-copyright">© 2025 Kasra Babazadeh. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="#home">Back to Top</a>
+        <!-- Creative Skills -->
+        <div class="skills-tab-content" id="creative-skills">
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-header">
+                <h3 class="skill-name">Photography</h3>
+                <span class="skill-percentage">90%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-progress="90"></div>
+              </div>
+              <div class="skill-tags">
+                <span class="skill-tag">Composition</span>
+                <span class="skill-tag">Lighting</span>
+                <span class="skill-tag">Editing</span>
+              </div>
             </div>
+            
+            <div class="skill-card">
+              <div class="skill-header">
+                <h3 class="skill-name">Video Editing</h3>
+                <span class="skill-percentage">85%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-progress="85"></div>
+              </div>
+              <div class="skill-tags">
+                <span class="skill-tag">Premiere Pro</span>
+                <span class="skill-tag">After Effects</span>
+                <span class="skill-tag">Color Grading</span>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-header">
+                <h3 class="skill-name">UI/UX Design</h3>
+                <span class="skill-percentage">80%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-progress="80"></div>
+              </div>
+              <div class="skill-tags">
+                <span class="skill-tag">Figma</span>
+                <span class="skill-tag">Wireframing</span>
+                <span class="skill-tag">Prototyping</span>
+              </div>
+            </div>
+          </div>
         </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script src="script.js"></script>
+        <!-- Soft Skills -->
+        <div class="skills-tab-content" id="soft-skills">
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-header">
+                <h3 class="skill-name">Problem Solving</h3>
+                <span class="skill-percentage">95%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-progress="95"></div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-header">
+                <h3 class="skill-name">Communication</h3>
+                <span class="skill-percentage">90%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-progress="90"></div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-header">
+                <h3 class="skill-name">Creativity</h3>
+                <span class="skill-percentage">95%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-progress="95"></div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-header">
+                <h3 class="skill-name">Adaptability</h3>
+                <span class="skill-percentage">85%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-progress="85"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="section projects-section">
+    <div class="container">
+      <h2 class="section-title reveal-text">Projects</h2>
+
+      <div class="project-filters">
+        <button class="project-filter active" data-filter="all">ALL</button>
+        <button class="project-filter" data-filter="web">WEB</button>
+        <button class="project-filter" data-filter="photo">PHOTO</button>
+        <button class="project-filter" data-filter="video">VIDEO</button>
+      </div>
+
+      <div class="projects-grid">
+<div class="project-card" data-category="web">
+  <div class="project-image">
+    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/visualization.jpg-mmdKB0kIaYvVFWZgSmMV2ht4HUisde.jpeg" alt="Interactive Data Visualization Dashboard" class="hover:scale-105 transition-transform duration-300">
+  </div>
+  <div class="project-content">
+    <h3 class="project-title">Interactive Data Visualization</h3>
+    <span class="project-category">WEB</span>
+    <a href="#" class="project-link">View Project</a>
+  </div>
+</div>
+
+<div class="project-card" data-category="web">
+  <div class="project-image">
+    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ecommerce-platform.jpg-u1r34coTOXAzfW5kreBEwUbRgsoPgg.jpeg" alt="Modern E-commerce Platform Interface" class="hover:scale-105 transition-transform duration-300">
+  </div>
+  <div class="project-content">
+    <h3 class="project-title">E-Commerce Platform</h3>
+    <span class="project-category">WEB</span>
+    <a href="#" class="project-link">View Project</a>
+  </div>
+</div>
+
+<div class="project-card" data-category="photo">
+  <div class="project-image">
+    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/urban-photography.jpg-5Wh7pxiPsccDCmDbGqVzVMMfDCmnqp.jpeg" alt="Urban Night Photography Series" class="hover:scale-105 transition-transform duration-300">
+  </div>
+  <div class="project-content">
+    <h3 class="project-title">Urban Photography Series</h3>
+    <span class="project-category">PHOTO</span>
+    <a href="#" class="project-link">View Project</a>
+  </div>
+</div>
+
+<div class="project-card" data-category="video">
+  <div class="project-image">
+    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cinematic-film.jpg-CazjHRQBL0uc2fv4teuOzmpCTZnqk2.jpeg" alt="Cinematic Short Film Production" class="hover:scale-105 transition-transform duration-300">
+  </div>
+  <div class="project-content">
+    <h3 class="project-title">Cinematic Short Film</h3>
+    <span class="project-category">VIDEO</span>
+    <a href="#" class="project-link">View Project</a>
+  </div>
+</div>
+
+<div class="project-card" data-category="web">
+  <div class="project-image">
+    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ai-web-app.jpg-hWOtN0WudvVfNznLexFS5qntottbtE.jpeg" alt="AI-Powered Web Application Interface" class="hover:scale-105 transition-transform duration-300">
+  </div>
+  <div class="project-content">
+    <h3 class="project-title">AI-Powered Web App</h3>
+    <span class="project-category">WEB</span>
+    <a href="#" class="project-link">View Project</a>
+  </div>
+</div>
+
+<div class="project-card" data-category="video">
+  <div class="project-image">
+    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/motion-graphics.jpg-yjsaXTFwTfl6X73Q5ZOOhpWGXLEtEH.jpeg" alt="Motion Graphics Demo Reel" class="hover:scale-105 transition-transform duration-300">
+  </div>
+  <div class="project-content">
+    <h3 class="project-title">Motion Graphics Reel</h3>
+    <span class="project-category">VIDEO</span>
+    <a href="#" class="project-link">View Project</a>
+  </div>
+</div>
+</div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+<section id="contact" class="section contact-section">
+<div class="container">
+  <h2 class="section-title reveal-text">Contact</h2>
+
+  <div class="contact-container">
+    <div class="contact-info card">
+      <h3>Get In Touch</h3>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-label">Email</div>
+          <a href="mailto:hello@kasrababazadeh.com" class="contact-value">hello@kasrababazadeh.com</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">Location</div>
+          <div class="contact-value">Tehran, Iran</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">Social</div>
+          <div class="social-links">
+            <a href="#" class="social-link linkedin">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <a href="#" class="social-link github">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </a>
+            <a href="#" class="social-link telegram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact form with EmailJS integration -->
+    <div class="contact-form card">
+      <form id="contact-form">
+        <input type="hidden" name="to_email" value="ka3r0a@gmail.com">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary neon-box">
+          <span>Send Message</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-logo neon-glow">KB</div>
+      <div class="footer-copyright">© <span id="year"></span> Kasra Babazadeh. All rights reserved.</div>
+      <a href="#home" class="back-to-top">Back to Top</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Custom Cursor -->
+<div class="cursor">
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+</div>
+
+<!-- Add EmailJS script before the closing </body> tag -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+(function() {
+  // Initialize EmailJS with your public key
+  emailjs.init("JnhRq3-CeeBob24NN");
+})();
+</script>
+
+<script src="script.js"></script>
 </body>
 </html>
 
