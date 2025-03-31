@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return newLang
     },
   }
-  const currentLang = LanguageContext.init()
+  let currentLanguage = LanguageContext.init()
 
   // Set current year in footer
   document.getElementById("year").textContent = new Date().getFullYear()
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         animateSkills()
         animateStats()
         revealSections()
-        updateLanguage(currentLang) // Apply initial language
+        updateLanguage(currentLanguage) // Apply initial language
       }, 1000)
     }
   }, 100)
@@ -68,40 +68,64 @@ document.addEventListener("DOMContentLoaded", () => {
   // Language toggle
   const languageToggle = document.getElementById("language-toggle")
   const mobileLanguageToggle = document.getElementById("mobile-language-toggle")
+  const htmlElement = document.documentElement
 
-  // Function to update all text content based on language
-  function updateLanguage(lang) {
+  // Function to switch language
+  function switchLanguage() {
+    // Toggle language
+    currentLanguage = currentLanguage === "en" ? "fa" : "en"
+    localStorage.setItem("language", currentLanguage)
+
+    // Add animation class
+    document.body.classList.add("language-switch-animation")
+
+    // Set direction attribute based on language
+    htmlElement.setAttribute("dir", currentLanguage === "fa" ? "rtl" : "ltr")
+
     // Update all elements with data-en and data-fa attributes
-    document.querySelectorAll("[data-en][data-fa]").forEach((element) => {
-      element.textContent = element.getAttribute(`data-${lang}`)
+    const elementsWithLang = document.querySelectorAll("[data-en][data-fa]")
+    elementsWithLang.forEach((el) => {
+      el.textContent = el.getAttribute(`data-${currentLanguage}`)
     })
 
-    // Update language toggle buttons
-    if (languageToggle) {
-      languageToggle.textContent = languageToggle.getAttribute(`data-${lang}`)
-    }
-    if (mobileLanguageToggle) {
-      mobileLanguageToggle.textContent = mobileLanguageToggle.getAttribute(`data-${lang}`)
+    // Update the glitch text data-text attribute for proper glitch effect
+    const glitchText = document.querySelector(".glitch-text")
+    if (glitchText) {
+      const nameText = glitchText.querySelector(".name-text").getAttribute(`data-${currentLanguage}`)
+      glitchText.setAttribute("data-text", nameText)
     }
 
-    // Update document direction
-    document.documentElement.dir = lang === "fa" ? "rtl" : "ltr"
-    document.documentElement.lang = lang
+    // Update welcome text before/after content
+    const welcomeText = document.querySelector(".welcome-text")
+    if (welcomeText) {
+      welcomeText.setAttribute("data-text", welcomeText.getAttribute(`data-${currentLanguage}`))
+    }
+
+    // Update language toggle button text
+    const langFrom = document.querySelectorAll(".lang-from")
+    const langTo = document.querySelectorAll(".lang-to")
+
+    langFrom.forEach((el) => {
+      el.textContent = currentLanguage === "fa" ? "EN" : "FA"
+    })
+
+    langTo.forEach((el) => {
+      el.textContent = currentLanguage === "fa" ? "FA" : "EN"
+    })
+
+    // Remove animation class after animation completes
+    setTimeout(() => {
+      document.body.classList.remove("language-switch-animation")
+    }, 500)
   }
 
-  // Language toggle event listeners
+  // Add event listener to language toggle buttons
   if (languageToggle) {
-    languageToggle.addEventListener("click", () => {
-      const newLang = LanguageContext.toggleLanguage(currentLang)
-      updateLanguage(newLang)
-    })
+    languageToggle.addEventListener("click", switchLanguage)
   }
 
   if (mobileLanguageToggle) {
-    mobileLanguageToggle.addEventListener("click", () => {
-      const newLang = LanguageContext.toggleLanguage(currentLang)
-      updateLanguage(newLang)
-    })
+    mobileLanguageToggle.addEventListener("click", switchLanguage)
   }
 
   // Custom cursor
@@ -387,6 +411,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contact-form")
 
   if (contactForm) {
+    const ntactForm = contactForm
     contactForm.addEventListener("submit", (e) => {
       e.preventDefault()
 
@@ -405,28 +430,21 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Send email using EmailJS
-      if (typeof emailjs !== "undefined") {
-        emailjs.send("service_bmt8ovc", "template_oj8vge3", templateParams).then(
-          (response) => {
-            console.log("SUCCESS!", response.status, response.text)
-            alert("Message sent successfully!")
-            contactForm.reset()
-            submitButton.innerHTML = originalButtonText
-            submitButton.disabled = false
-          },
-          (error) => {
-            console.log("FAILED...", error)
-            alert("Failed to send message. Please try again later.")
-            submitButton.innerHTML = originalButtonText
-            submitButton.disabled = false
-          },
-        )
-      } else {
-        console.error("EmailJS is not initialized. Please ensure EmailJS is properly integrated.")
-        alert("Failed to send message. EmailJS is not initialized.")
-        submitButton.innerHTML = originalButtonText
-        submitButton.disabled = false
-      }
+      emailjs.send("service_bmt8ovc", "template_oj8vge3", templateParams).then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text)
+          alert("Message sent successfully!")
+          contactForm.reset()
+          submitButton.innerHTML = originalButtonText
+          submitButton.disabled = false
+        },
+        (error) => {
+          console.log("FAILED...", error)
+          alert("Failed to send message. Please try again later.")
+          submitButton.innerHTML = originalButtonText
+          submitButton.disabled = false
+        },
+      )
     })
   }
 
@@ -584,5 +602,74 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   createHexagons()
-})
 
+  // Set social links
+  const socialLinks = {
+    linkedin: "https://linkedin.com/in/kasrababazadeh",
+    github: "https://github.com/ka3r0a",
+    telegram: "https://t.me/iik3r",
+    instagram: "https://instagram.com/ka3r0",
+  }
+
+  // Apply links to icons
+  const linkedinLink = document.getElementById("linkedin-link")
+  const githubLink = document.getElementById("github-link")
+  const telegramLink = document.getElementById("telegram-link")
+  const instagramLink = document.getElementById("instagram-link")
+
+  if (linkedinLink) linkedinLink.href = socialLinks.linkedin
+  if (githubLink) githubLink.href = socialLinks.github
+  if (telegramLink) telegramLink.href = socialLinks.telegram
+  if (instagramLink) instagramLink.href = socialLinks.instagram
+
+  // Function to update language
+  function switchLanguage() {
+    currentLanguage = currentLanguage === "en" ? "fa" : "en";
+    localStorage.setItem("language", currentLanguage);
+    htmlElement.setAttribute("dir", currentLanguage === "fa" ? "rtl" : "ltr");
+
+    function updateLanguage(lang) {
+      const firstName = document.querySelector('.first-name');
+      const lastName = document.querySelector('.last-name');
+      
+      if (firstName && lastName) {
+        firstName.textContent = firstName.getAttribute(`data-${lang}`);
+        lastName.textContent = lastName.getAttribute(`data-${lang}`);
+      }
+      // بقیه کدها...
+    }
+    // بقیه کدها...
+
+    // Update all elements with data-en and data-fa attributes
+    const elementsWithLang = document.querySelectorAll("[data-en][data-fa]")
+    elementsWithLang.forEach((el) => {
+      el.textContent = el.getAttribute(`data-${currentLanguage}`)
+    })
+
+    // Update the glitch text data-text attribute for proper glitch effect
+    const glitchText = document.querySelector(".glitch-text")
+    if (glitchText) {
+      const nameText = glitchText.querySelector(".name-text").getAttribute(`data-${currentLanguage}`)
+      glitchText.setAttribute("data-text", nameText)
+    }
+
+    // Update welcome text before/after content
+    const welcomeText = document.querySelector(".welcome-text")
+    if (welcomeText) {
+      welcomeText.setAttribute("data-text", welcomeText.getAttribute(`data-${currentLanguage}`))
+    }
+
+    // Update language toggle button text
+    const langFrom = document.querySelectorAll(".lang-from")
+    const langTo = document.querySelectorAll(".lang-to")
+
+    langFrom.forEach((el) => {
+      el.textContent = currentLanguage === "fa" ? "EN" : "FA"
+    })
+
+    langTo.forEach((el) => {
+      el.textContent = currentLanguage === "fa" ? "FA" : "EN"
+    })
+  }
+  emailjs.init("YOUR_PUBLIC_KEY")
+})
