@@ -205,7 +205,7 @@ textarea {
 
 .welcome-text::before,
 .welcome-text::after {
-  content: "WELCOME TO MY WORLD";
+  content: attr(data-en);
   position: absolute;
   top: 0;
   left: 0;
@@ -360,12 +360,36 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .logo {
   font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 700;
+  margin-left: 20px; /* Add some margin to move the logo a bit to the right */
+}
+
+.logo-image {
+  height: 40px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 0 5px rgba(220, 38, 38, 0.8)) drop-shadow(0 0 10px rgba(220, 38, 38, 0.5))
+    drop-shadow(0 0 15px rgba(220, 38, 38, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-image {
+  transform: scale(1.1);
+}
+
+.footer-logo .logo-image {
+  height: 35px;
+}
+
+.preloader-logo .logo-image {
+  height: 60px;
+  margin-bottom: 1rem;
 }
 
 .nav-list {
@@ -618,18 +642,29 @@ textarea {
   animation: scan 3s ease-in-out infinite;
 }
 
+/* Fix the hero content layout for both languages */
 .hero-content {
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse; /* این خط را اضافه کنید */
   align-items: center;
+  justify-content: space-between;
   gap: 4rem;
   padding: 2rem 0;
 }
 
-@media (min-width: 992px) {
+/* Ensure eye stays on left in English and right in Persian */
+/* برای حالت فارسی (چشم در راست) */
+[dir="rtl"] .hero-content {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .hero-content {
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 992px) {
   .hero-content {
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column !important;
   }
 }
 
@@ -659,6 +694,67 @@ textarea {
 
 .glitch-text span {
   display: block;
+  position: relative;
+}
+
+/* استایل‌های جدید برای نام و نام خانوادگی */
+.name-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.first-name,
+.last-name {
+  display: block;
+  line-height: 1.2;
+}
+
+.first-name {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.last-name {
+  font-size: 2.5rem;
+}
+
+/* حالت موبایل */
+@media (max-width: 768px) {
+  .first-name {
+    font-size: 2.5rem;
+  }
+  .last-name {
+    font-size: 1.8rem;
+  }
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.glitch-text::before {
+  color: var(--primary);
+  z-index: -1;
+  animation: glitch-effect 3s infinite;
+}
+
+.glitch-text::after {
+  color: white;
+  z-index: -2;
+  animation: glitch-effect 2s infinite reverse;
+}
+
+[dir="rtl"] .glitch-text::before,
+[dir="rtl"] .glitch-text::after {
+  content: attr(data-text);
 }
 
 .hero-description {
@@ -669,14 +765,73 @@ textarea {
 
 .hero-buttons {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 1rem;
+  margin-top: 2rem;
 }
 
-@media (min-width: 576px) {
+/* حالت عادی (انگلیسی) */
+/* حالت اصلی دکمه‌ها - همیشه افقی */
+/* حالت اصلی دکمه‌ها */
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* حالت انگلیسی (چپ چین) */
+[dir="ltr"] .hero-buttons {
+  justify-content: flex-start;
+}
+
+/* حالت فارسی (راست چین) */
+[dir="rtl"] .hero-buttons {
+  justify-content: flex-end;
+}
+
+/* اضافه کردن فونت گوفته */
+@font-face {
+  font-family: 'Gofteh-Heavy';
+  src: url('Gofteh-Heavy.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* استایل برای نام در حالت فارسی */
+[dir="rtl"] .glitch-text span.name-text {
+  font-family: 'Gofteh-Heavy', var(--font-heading);
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+/* حالت موبایل */
+@media (max-width: 992px) {
   .hero-buttons {
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
+
+  [dir="rtl"] .hero-buttons,
+  [dir="ltr"] .hero-buttons {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+  }
+}
+
+[dir="rtl"] .hero-text {
+  text-align: right;
+}
+
+[dir="rtl"] .hero-buttons {
+  direction: ltr; /* جهت دکمه‌ها را ثابت نگه می‌دارد */
 }
 
 .btn {
@@ -724,13 +879,24 @@ textarea {
   background-color: rgba(220, 38, 38, 0.1);
 }
 
-.hero-eye-container {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  display: flex;
+a.btn {
+  text-decoration: none;
+  text-align: center;
   justify-content: center;
-  align-items: center;
+}
+
+/* اطمینان از جهت‌دهی صحیح */
+.hero-eye-container {
+  order: 1;
+}
+
+[dir="rtl"] .hero-eye-container {
+  order: 2;
+}
+
+/* برای رفع مشکلات احتمالی تراز */
+.hero-text {
+  flex: 1;
 }
 
 .realistic-eye-large {
@@ -940,29 +1106,37 @@ textarea {
   animation-delay: 4s;
 }
 
+/* Scroll indicator - centered */
 .scroll-indicator {
   position: absolute;
   bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   color: #666;
   animation: fadeIn 1s ease 2s forwards, float 2s ease-in-out infinite;
   opacity: 0;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .scroll-indicator span {
   font-family: var(--font-mono);
   font-size: 0.875rem;
+  text-align: center;
+  width: 100%;
 }
 
 .chevron-down {
   width: 20px;
   height: 20px;
   position: relative;
+  margin: 0 auto;
 }
 
 .chevron-down::before {
@@ -1543,6 +1717,19 @@ textarea {
   .menu-toggle {
     display: block;
   }
+
+  .hero-content {
+    flex-direction: column !important;
+    align-items: center;
+  }
+
+  .hero-text {
+    text-align: center !important;
+  }
+
+  .hero-buttons {
+    justify-content: center !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1575,6 +1762,120 @@ textarea {
 
   .skill-card {
     padding: 1rem;
+  }
+}
+
+/* Language Switcher Styles */
+.language-switcher {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.language-toggle {
+  width: 100px;
+  height: 40px;
+  border-radius: 20px;
+  background: rgba(24, 24, 27, 0.7);
+  border: 2px solid rgba(255, 0, 85, 0.5);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
+  padding: 0;
+}
+
+/* Mobile language switcher */
+.mobile-language-switcher {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Header styles update */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 0;
+  z-index: 100;
+  transition: padding 0.3s ease, background-color 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .language-switcher {
+    display: none; /* Hide in header on mobile */
+  }
+
+  .mobile-language-switcher {
+    display: flex; /* Show in mobile menu */
+  }
+}
+
+@media (min-width: 993px) {
+  .mobile-language-switcher {
+    display: none; /* Hide in mobile menu on desktop */
+  }
+}
+
+/* Animation for language switch */
+.language-switch-animation {
+  animation: fadeInOut 0.5s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Instagram icon styling - make it consistent with other social icons */
+.social-link.instagram:hover {
+  background-color: var(--primary);
+}
+
+/* RTL Support for Persian Language */
+[dir="rtl"] .hero-text {
+  text-align: right;
+}
+
+[dir="rtl"] .hero-description {
+  text-align: right;
+}
+
+[dir="rtl"] .hero-buttons {
+  justify-content: flex-end;
+}
+
+/* Fix for glitch text in RTL mode */
+[dir="rtl"] .welcome-text::before,
+[dir="rtl"] .welcome-text::after {
+  content: attr(data-fa);
+}
+
+[dir="rtl"] .glitch-text::before,
+[dir="rtl"] .glitch-text::after {
+  content: attr(data-text);
+}
+
+/* Fix for mobile view */
+@media (max-width: 992px) {
+  [dir="rtl"] .hero-text,
+  [dir="rtl"] .hero-description {
+    text-align: center;
+  }
+
+  [dir="rtl"] .hero-buttons {
+    justify-content: center;
   }
 }
 
