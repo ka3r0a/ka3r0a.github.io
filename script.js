@@ -608,7 +608,7 @@ document.addEventListener("DOMContentLoaded", () => {
     linkedin: "https://linkedin.com/in/kasrababazadeh",
     github: "https://github.com/ka3r0a",
     telegram: "https://t.me/ka3rair",
-    instagram: "https://instagram.com/ka3r0",
+    instagram: "https://instagram.com/ka3r0a",
   }
 
   // Apply links to icons
