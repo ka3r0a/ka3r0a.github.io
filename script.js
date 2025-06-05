@@ -607,7 +607,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const socialLinks = {
     linkedin: "https://linkedin.com/in/kasrababazadeh",
     github: "https://github.com/ka3r0a",
-    telegram: "https://t.me/iik3r",
+    telegram: "https://t.me/ka3rair",
     instagram: "https://instagram.com/ka3r0",
   }
 
