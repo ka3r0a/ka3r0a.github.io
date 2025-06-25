@@ -367,11 +367,12 @@ textarea {
   font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 700;
-  margin-left: 20px; /* Add some margin to move the logo a bit to the right */
+  margin-left: 20px;
 }
 
+/* **تغییر اعمال شده: افزایش ارتفاع لوگوی عمومی (برای هدر) از 40px به 60px** */
 .logo-image {
-  height: 40px;
+  height: 60px; /* افزایش ارتفاع برای بزرگتر شدن لوگو */
   width: auto;
   display: block;
   filter: drop-shadow(0 0 5px rgba(220, 38, 38, 0.8)) drop-shadow(0 0 10px rgba(220, 38, 38, 0.5))
@@ -383,12 +384,14 @@ textarea {
   transform: scale(1.1);
 }
 
+/* **تغییر اعمال شده: افزایش ارتفاع لوگوی فوتر از 35px به 50px** */
 .footer-logo .logo-image {
-  height: 35px;
+  height: 50px; /* افزایش ارتفاع برای بزرگتر شدن لوگو در فوتر */
 }
 
+/* **تغییر اعمال شده: افزایش ارتفاع لوگوی پری‌لودر از 60px به 80px** */
 .preloader-logo .logo-image {
-  height: 60px;
+  height: 80px; /* افزایش ارتفاع برای بزرگتر شدن لوگو در پری‌لودر */
   margin-bottom: 1rem;
 }
 
@@ -531,19 +534,19 @@ textarea {
   text-align: center;
   margin-bottom: 3rem;
   position: relative;
-  width: 100%; /* Add this */
-  text-align: center; /* Reinforce center alignment */
-  left: auto; /* Remove left positioning */
-  transform: none; /* Remove transform */
-  display: block; /* Change to block */
+  width: 100%;
+  text-align: center;
+  left: auto;
+  transform: none;
+  display: block;
 }
 
 .section-title::after {
   content: "";
   position: absolute;
   bottom: -10px;
-  left: 50%; /* Center the underline */
-  transform: translateX(-50%); /* Center the underline */
+  left: 50%;
+  transform: translateX(-50%);
   width: 60px;
   height: 3px;
   background-color: var(--primary);
@@ -645,7 +648,7 @@ textarea {
 /* Fix the hero content layout for both languages */
 .hero-content {
   display: flex;
-  flex-direction: row-reverse; /* این خط را اضافه کنید */
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
   gap: 4rem;
@@ -1807,17 +1810,17 @@ a.btn {
 /* Responsive adjustments */
 @media (max-width: 992px) {
   .language-switcher {
-    display: none; /* Hide in header on mobile */
+    display: none;
   }
 
   .mobile-language-switcher {
-    display: flex; /* Show in mobile menu */
+    display: flex;
   }
 }
 
 @media (min-width: 993px) {
   .mobile-language-switcher {
-    display: none; /* Hide in mobile menu on desktop */
+    display: none;
   }
 }
 
@@ -1878,4 +1881,3 @@ a.btn {
     justify-content: center;
   }
 }
-
